@@ -8,7 +8,7 @@ change data capture (CDC) to detect changes in a source database and propagate c
 CouchbaseGoldenGateAdapter is an example adapter using the GoldenGate Java Adapter framework to support 
 data synchronization propagated from Oracle to Couchbase. In this way, any write transaction on Oracle database (insert, update or delete) gets propagated to Couhbase database.
 
-![](https://github.com/mahurtado/CouchbaseGoldenGateAdapter/blob/master/ggadapter.jpg)
+![](https://github.com/mahurtado/CouchbaseGoldenGateAdapter/blob/master/cb_ggadapter.jpg)
 
 ## How it works
 
