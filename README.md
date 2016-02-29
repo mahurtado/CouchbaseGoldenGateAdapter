@@ -89,6 +89,8 @@ locations::1200
   }
 ```
 
+![](https://github.com/mahurtado/oracle2couchbase/blob/master/oracle2couchbase_1.jpg)
+
 ## Installation & Configuration
 
 Prerequisites:
