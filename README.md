@@ -5,7 +5,7 @@
 Oracle GoldenGate is an Oracle product used for data syncronization between different databases. It uses log-based 
 change data capture (CDC) to detect changes in a source database and propagate changes to a target database. 
 
-CouchbaseGoldenGateAdapter is an example adapter using the GoldenGate Java Adapter framework to support 
+CouchbaseGoldenGateAdapter is an example adapter using the [GoldenGate Java Adapter](https://docs.oracle.com/goldengate/gg121211/gg-adapter/GADAD/intro_java.htm) framework to support 
 data synchronization propagated from Oracle to Couchbase. In this way, any write transaction on Oracle database (insert, update or delete) gets propagated to Couhbase database.
 
 ![](https://github.com/mahurtado/CouchbaseGoldenGateAdapter/blob/master/cb_ggadapter.jpg)
@@ -334,7 +334,7 @@ Before we start to update changes in real time, data must be present in advance.
 
 In order to make an initial load from Oracle, you must follow the conventions exposed in the "Data mapping" section.
 
-This work can be done with the tool [oracle2couchbase](https://github.com/mahurtado/oracle2couchbase).
+This work can be done with the tool [oracle2couchbase](https://github.com/mahurtado/oracle2couchbase). This tool load data with the same data assumptions exposed in this document.
 
 ## Operation
 
