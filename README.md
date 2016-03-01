@@ -15,7 +15,7 @@ data synchronization propagated from Oracle to Couchbase. In this way, any write
 1. Make an initial load from Oracle to Couchbase
 2. Install GoldenGate in source and target machines
 3. Configure Oracle source database
-4. Install and confugure CouchbaseGoldenGateAdapter
+4. Install and configure CouchbaseGoldenGateAdapter
 5. Start the GoldenGate processes
 
 You are done. From this point any change in Oracle gets propagated to Couchbase.
