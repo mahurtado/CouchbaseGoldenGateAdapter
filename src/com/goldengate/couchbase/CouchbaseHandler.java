@@ -57,7 +57,10 @@ public class CouchbaseHandler extends AbstractHandler {
 	public Bucket getBucket(){
 		if(bucket == null){
 			CouchbaseCluster cluster = CouchbaseCluster.create(Arrays.asList(clusterAddress.split(",")));
-			bucket = cluster.openBucket(bucketName, bucketPassword);
+			if(bucketPassword != null)
+				bucket = cluster.openBucket(bucketName, bucketPassword);
+			else
+				bucket = cluster.openBucket(bucketName);
 		}
 		return bucket;
 	}
@@ -105,9 +108,12 @@ public class CouchbaseHandler extends AbstractHandler {
 		JsonObject jsonContent = JsonObject.create();
 		
 		if("UPDATE".equals(operation.getSqlType()))
-			jsonContent = getBucket().get(getKey(e, operation)).content().getObject(tname);
-		else
+			jsonContent = getBucket().get(getKey(e, operation)).content();
+		//INSERT
+		else{
 			jsonContent = JsonObject.create();
+			jsonContent.put("type", tname);
+		}
 		
 	    for(DsColumn col : cols){
 	    	String val = col.getAfterValue();
@@ -117,8 +123,9 @@ public class CouchbaseHandler extends AbstractHandler {
 	    	}
 	    	index++;
 	    }
+	    return jsonContent;
 	    
-	    return JsonObject.create().put(tname, jsonContent);
+	    //return JsonObject.create().put(tname, jsonContent);
 	}
 	
 	
