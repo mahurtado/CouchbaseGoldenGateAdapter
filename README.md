@@ -65,32 +65,7 @@ In order to map data between both we will use the following conventions
 
 ### Transformation Example
 
-Oracle row in a table:
-
-location_id | street_address | postal_code | city	| state_province | country_id
------------ | -------------- | ----------- | ----	| -------------- | ----------
-1200 | 2017 Shinjuku-ku | 1689 | Tokyo | Tokyo Prefecture | JP
-**primary key** |
-
-JSON Document to be stored in Couchbase:
-
-**Key**
-```
-locations::1200
-```
-**Value** 
-```
-  "locations": {
-    "street_address": "2017 Shinjuku-ku",
-    "state_province": "Tokyo Prefecture",
-    "postal_code": "1689",
-    "city": "Tokyo",
-    "location_id": 1200,
-    "country_id": "JP"
-  }
-```
-
-![](https://github.com/mahurtado/oracle2couchbase/blob/master/oracle2couchbase_1.jpg)
+![](https://github.com/mahurtado/oracle2couchbase/blob/master/oracle2couchbase_2.jpg)
 
 ## Installation & Configuration
 
@@ -290,11 +265,13 @@ gg.handler.couchbase.tableDefinitionFileName=/u01/app/oracle/ggadapter/dirdef/hr
 
 goldengate.userexit.nochkpt=true  
 goldengate.userexit.writers=javawriter
- 
+
+# Check SDK Version. Following classpath is for Java Couchbase SDK version 2.2.6
+
 javawriter.bootoptions=-Xms64m -Xmx512m -Djava.class.path=/u01/app/oracle/ggadapter/dirprm:/u01/app/oracl
-e/ggadapter/dirprm/couchbaseGGhandler.jar:/u01/app/oracle/ggadapter/dirprm/couchbase-core-io-1.2.2.jar:/u
-01/app/oracle/ggadapter/dirprm/couchbase-java-client-2.2.2.jar:/u01/app/oracle/ggadapter/dirprm/rxjava-1.
-0.15.jar:/u01/app/oracle/ggadapter/ggjava/ggjava.jar
+e/ggadapter/dirprm/couchbaseGGhandler.jar:/u01/app/oracle/ggadapter/dirprm/couchbase-core-io-1.2.7.jar:/u
+01/app/oracle/ggadapter/dirprm/couchbase-java-client-2.2.6.jar:/u01/app/oracle/ggadapter/dirprm/rxjava-1.
+0.17.jar:/u01/app/oracle/ggadapter/ggjava/ggjava.jar
 ```
 
 Use your own values for properties:
