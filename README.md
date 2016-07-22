@@ -54,7 +54,7 @@ In order to map data between both we will use the following conventions
 
 ### Conventions
 
-* Each JSON Document will include a root-element equal to the name of the table
+* Each JSON Document will include a element named "type", equal to the name of the table. This element is used to distinguish between different kind of objects.
 * All the attribute names are lower-case
 * Couchbase is a key-value document database. The format of the **key** will be derived from the relational primary key as follows:
 
@@ -122,10 +122,11 @@ GRANT SELECT ANY DICTIONARY to GGATE_ADMIN;
 GRANT FLASHBACK ANY TABLE to GGATE_ADMIN;  
 GRANT SELECT ON DBA_CLUSTERS TO GGATE_ADMIN;  
 GRANT EXECUTE ON DBMS_FLASHBACK TO GGATE_ADMIN;  
-GRANT SELECT ANY TRANSACTION To GGATE_ADMIN;  
+GRANT SELECT ANY TRANSACTION TO GGATE_ADMIN;  
 GRANT SELECT ON SYS.V_$DATABASE TO GGATE_ADMIN;  
 GRANT FLASHBACK ANY TABLE TO GGATE_ADMIN;  
 GRANT ALTER ANY TABLE TO GGATE_ADMIN; 
+GRANT SELECT ANY TABLE TO GGATE_ADMIN; 
 
 EXEC DBMS_GOLDENGATE_AUTH.GRANT_ADMIN_PRIVILEGE('GGATE_ADMIN'); 
 EXEC DBMS_STREAMS_AUTH.GRANT_ADMIN_PRIVILEGE('GGATE_ADMIN');
