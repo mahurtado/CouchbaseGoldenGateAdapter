@@ -1,9 +1,12 @@
 package com.goldengate.couchbase;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -178,9 +181,18 @@ public class CouchbaseHandler extends AbstractHandler {
 	public String reportStatus() {
 		return "Processed (mode='" + getMode() + "')" + " transactions=" + numTxs + ", operations=" + numOps;
 	}
+	
+	private static String getISO8601String(Date date) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		return dateFormat.format(date);
+	}
 
 	private static Object getJsonTypeObject(String value, int type){
 		Object res = null;
+		if(value == null || "NULL".equalsIgnoreCase(value)){
+			return null;
+		}
 		try {
 			switch(type) {
 			case DataTypes.DT_CHAR:
@@ -197,7 +209,7 @@ public class CouchbaseHandler extends AbstractHandler {
 				break;
 			case DataTypes.DT_DATE:
 				SimpleDateFormat parserSDF=new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss");
-				res = parserSDF.parse(value).getTime();
+				res = getISO8601String(parserSDF.parse(value));
 				break;
 			default:	
 				res = value;
