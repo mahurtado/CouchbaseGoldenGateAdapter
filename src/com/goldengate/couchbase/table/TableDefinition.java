@@ -35,33 +35,37 @@ public class TableDefinition {
 	
 	public static void loadFromFile(File tableDefFile){
 		try {
+			log.log(Level.INFO, "Loading table definitions from file: " + tableDefFile.getAbsolutePath());
 			Scanner scanner = new Scanner(tableDefFile);
-			scanner.useDelimiter(System.getProperty("line.separator"));
-			while (scanner.hasNext()) {
-				String line = scanner.next();
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
 				if(line.startsWith(DEFTAB_INIT_TOKEN)){
 					loadTableDefintion(line, scanner);
 				}
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
+			log.log(Level.SEVERE, "Unable to load table definitions from file: " + tableDefFile.getAbsolutePath());
 			e.printStackTrace();
 		} 
 	}
 	
 	private static void loadTableDefintion(String initLine, Scanner scanner) {
 		String tableName = initLine.substring(DEFTAB_INIT_TOKEN.length());
-		scanner.next();
-		scanner.next();
-		scanner.next();
+		log.log(Level.INFO, "Loading table: " + tableName);
+		scanner.nextLine();
+		scanner.nextLine();
+		scanner.nextLine();
 		String line = null;
 		int index = 0;
 		List<ColumnDefinition> columnList = new ArrayList<ColumnDefinition>();
-		while(!(line = scanner.next()).startsWith(DEFTAB_END_TOKEN)){
+		while(!(line = scanner.nextLine()).startsWith(DEFTAB_END_TOKEN)){
 			String fields[] = line.split("\\s+");
 			columnList.add(new ColumnDefinition(index ++, fields[0], Integer.parseInt(fields[1]), !"0".equals(fields[17])));
 		}
-		tables.put(tableName, new TableDefinition(tableName, columnList.toArray(new ColumnDefinition[0])));		
+		TableDefinition tdef = new TableDefinition(tableName, columnList.toArray(new ColumnDefinition[0]));
+		log.log(Level.INFO, "Table: " + tableName + " loaded: " + tdef.toString());
+		tables.put(tableName, tdef);		
 	}
 	
 	

@@ -70,6 +70,10 @@ public class CouchbaseHandler extends AbstractHandler {
 	
 	public String getKey(DsEvent e, DsOperation operation){
 		TableDefinition tdef = TableDefinition.getTableDefinition(operation.getTableName().getFullName());
+		if(tdef == null){
+			log.log(Level.SEVERE, "No table definition found for table: " + operation.getTableName().getFullName());
+			throw new RuntimeException("No table definition found for table: " + operation.getTableName().getFullName());
+		}
 		String tname = getTName(operation, tdef);
 		StringBuffer sbkey = new StringBuffer(tname);
 		int index = 0;
@@ -85,6 +89,7 @@ public class CouchbaseHandler extends AbstractHandler {
 	    	}
 	    	index++;
 	    }
+	    log.log(Level.INFO, "Returning key: " + sbkey.toString());
 	    return sbkey.toString();		
 	}
 	
@@ -160,10 +165,13 @@ public class CouchbaseHandler extends AbstractHandler {
 			case "DELETE":
 				getBucket().remove(doc);
 				break;
+			default:
+				log.log(Level.SEVERE, "Unknown operation: " + operation.getSqlType() + ". No action taken.");
+				break;
 			}
 		} catch (Exception e1) {
 			String msg = "Error processing operation: " + e1.getMessage();
-			log.log(Level.INFO, msg, e1);
+			log.log(Level.SEVERE, msg, e1);
 			e1.printStackTrace();
 		}
 
